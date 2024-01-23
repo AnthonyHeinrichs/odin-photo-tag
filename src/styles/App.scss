@@ -1,3 +1,4 @@
+
 .header {
   width: 100%;
   display: flex;
@@ -105,32 +106,8 @@
   gap: 8px;
 }
 
-.game {
-  border-radius: 10px;
-  border: solid black 2px;
-  text-align: center;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
-
-  &__image {
-    width: 250px;
-    height: 200px;
-    border-radius: 10px;
-    object-fit: cover;
-  }
-
-  :hover {
-    cursor: pointer;
-  }
-
-  &__dark_theme {
-    border: solid white 2px;
-  }
-}
-
 .leaderboard {
   margin-top: 48px;
   width: 100%;
   text-align: center;
 }
-
-
