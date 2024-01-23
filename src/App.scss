@@ -1,23 +1,97 @@
 .header {
   width: 100%;
-  padding-bottom: 12px;
-  background-color: rgb(23, 26, 31);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__dark_theme {
+    background-color: rgb(23, 26, 31);
+  }
+
+  &__light_theme {
+    background-color: rgb(243, 247, 255);
+  }
+
+  &__logo {
+    width: 80px;
+    height: 80px;
+  }
 
   &__title {
-    padding: 12px;
     text-align: center;
-    color: white;
+    
+
+    &__dark_theme {
+      color: white;
+    }
+  
+    &__light_theme {
+      color: black;
+    }
   }
 
   &__subtitle {
-    padding: 8px;
     color: white;
     text-align: center;
+  }
+
+  &__theme__icon {
+    padding: 8px;
+    height: 40px;
+    width: 40px;
+  }
+
+  @keyframes slideDown {
+    0% {
+      transform: translateY(10px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0px);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideUp {
+    0% {
+      transform: translateY(10px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  .header__theme img {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out; 
+  }
+  
+  .header__theme.light img {
+    animation: slideDown 0.5s ease-in-out; 
+  }
+  
+  .header__theme.dark img {
+    animation: slideUp 0.5s ease-in-out; 
+  }
+}
+
+.main {
+  padding-top: 40px;
+  height: 85vh;
+
+  &__dark_theme {
+    background-color: black;
+    color: white;
+  }
+
+  &__light_theme {
+    background-color: white;
   }
 }
 
 .title {
-  margin-top: 62px;
   margin-bottom: 24px;
   font-weight: 200;
   width: 100%;
@@ -46,6 +120,10 @@
 
   :hover {
     cursor: pointer;
+  }
+
+  &__dark_theme {
+    border: solid white 2px;
   }
 }
 
