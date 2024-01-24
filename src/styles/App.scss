@@ -1,8 +1,11 @@
 
 .header {
   width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
   display: flex;
   justify-content: space-between;
+  position: relative;
   align-items: center;
 
   &__dark_theme {
@@ -20,7 +23,9 @@
 
   &__title {
     text-align: center;
-    
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 
     &__dark_theme {
       color: white;
@@ -37,7 +42,6 @@
   }
 
   &__theme__icon {
-    padding: 8px;
     height: 40px;
     width: 40px;
   }
@@ -94,6 +98,8 @@
 
 .title {
   margin-bottom: 24px;
+  box-sizing: border-box;
+  padding: 12px;
   font-weight: 200;
   width: 100%;
   text-align: center;

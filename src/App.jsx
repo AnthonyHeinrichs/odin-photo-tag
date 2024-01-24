@@ -15,7 +15,7 @@ function App() {
     <>
       <Header theme={theme}/>
       <main className={`main main__${theme}`}>
-        <h1  className="title">Choose a Game</h1>
+        <h1  className="title">Choose a Level</h1>
         <div className="games">
           <GameCard 
           image={nintendoCard} 
