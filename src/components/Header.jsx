@@ -1,5 +1,6 @@
 import { useTheme } from "./ThemeContext";
-import nintendoCard from "/nintendo64-card.png";
+import { Link } from "react-router-dom";
+import headerIcon from "/tag-icon.svg";
 import moonIcon from "/moon-icon.png";
 import sunIcon from "/sun-icon.png";
 
@@ -8,7 +9,9 @@ const Header = () => {
 
   return (
     <div className={`header header__${theme}`}>
-      <img className="header__logo" src={nintendoCard} alt="nintendo-64" />
+      <Link to="/">
+        <img className="header__logo" src={headerIcon} alt="nintendo-64" />
+      </Link>
       <div className={`header__title header__title__${theme}`}>
         <h1 className="header__title__main">Hidden</h1>
         <p className="header__title__subtitle">(A photo tagging game)</p>
