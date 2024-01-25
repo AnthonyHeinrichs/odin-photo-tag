@@ -17,24 +17,30 @@ function App() {
       <main className={`main main__${theme}`}>
         <h1  className="title">Choose a Level</h1>
         <div className="games">
-          <GameCard 
-          image={nintendoCard} 
-          alt="nintendo-64" 
-          title="Nintendo 64" 
-          difficulty="Easy"
-          />
-          <GameCard 
-          image={prehistoriaCard} 
-          alt="prehistoria" 
-          title="Prehistoria" 
-          difficulty="Medium"
-          />
-          <GameCard 
-          image={dragonIslandCard} 
-          alt="dragon-island" 
-          title="Dragon Charmer's Island" 
-          difficulty="Hard"
-          />
+          <Link className={`games__link games__link_${theme}`} to="/game/nintendo">
+            <GameCard 
+            image={nintendoCard} 
+            alt="nintendo-64" 
+            title="Nintendo 64" 
+            difficulty="Easy"
+            />
+          </Link>
+          <Link className={`games__link games__link_${theme}`} to="/game/prehistoria">
+            <GameCard 
+            image={prehistoriaCard} 
+            alt="prehistoria" 
+            title="Prehistoria" 
+            difficulty="Medium"
+            />
+          </Link>
+          <Link className={`games__link games__link_${theme}`} to="/game/dragon">
+            <GameCard 
+            image={dragonIslandCard} 
+            alt="dragon-island" 
+            title="Dragon Charmer's Island" 
+            difficulty="Hard"
+            />
+          </Link>
         </div>
         <div className="leaderboard">
           <Link to="/leaderboard">
