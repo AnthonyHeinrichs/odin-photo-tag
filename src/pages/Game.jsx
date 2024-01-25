@@ -1,16 +1,19 @@
 import { useParams } from "react-router-dom";
-import GameOne from "../components/GameOne"
+import GameHeader from "../components/GameHeader"
 
 const Game = () => {
   const { name } = useParams();
 
   return (
     <>
-      <h1>Game page</h1>
-      {name === "waldo" ? (
-        <GameOne />
+      {name === "nintendo" ? (
+        <GameHeader game={name} />
+      ) : name === "prehistoria" ? (
+        <GameHeader game={name} />
+      ) : name === "dragon" ? (
+        <GameHeader game={name} />
       ) : (
-        <h2>No game</h2>
+        <h1>{name} is not a game.</h1>
       )}
     </>
   )

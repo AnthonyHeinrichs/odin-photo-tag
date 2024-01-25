@@ -7,8 +7,8 @@ const GameCard = ({image, alt, title, difficulty}) => {
   return (
     <div className={`game game__${theme}`}>
       <img className="game__image" src={image} alt={alt}/>
-      <h4>{title}</h4>
-      <p>{difficulty}</p>
+      <h4 className="game__title">{title}</h4>
+      <p className="game__difficulty">{difficulty}</p>
     </div>
   )
 }

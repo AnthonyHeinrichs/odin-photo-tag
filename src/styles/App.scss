@@ -110,6 +110,18 @@
   justify-content: center;
   align-items: center;
   gap: 8px;
+
+  &__link {
+    text-decoration: none;
+  }
+
+  &__link_light_theme {
+    color: black;
+  }
+
+  &__link_dark_theme {
+    color: white;
+  }
 }
 
 .leaderboard {
