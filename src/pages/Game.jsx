@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import CircularCursor from "../components/CircularCursor";
 import GameHeader from "../components/GameHeader"
 import Nintendo64 from "/nintendo64.png";
 import Prehistoria from "/prehistoria.png";
@@ -91,7 +92,8 @@ const Game = () => {
   }, [xScale, yScale, coords]);
 
   return (
-    <>
+    <div className="game__page">
+      <CircularCursor />
       {name === "nintendo" ? (
         <>
           <GameHeader game={name} timer={timer.toFixed()} />
@@ -104,6 +106,19 @@ const Game = () => {
               onClick={handleTargetBoxClick}
             />
           </div>
+          {dropdownVisible && (
+            <div
+              className="dropdown"
+              style={{left: dropdownPosition.x + 10, top: dropdownPosition.y + 55 }}
+            >
+              <div>
+                <p>Character 1</p>
+                <p>Character 2</p>
+                <p>Character 3</p>
+                <p>Character 4</p>
+              </div>
+            </div>
+          )}  
         </>
       ) : name === "prehistoria" ? (
         <>
@@ -120,7 +135,7 @@ const Game = () => {
           {dropdownVisible && (
             <div
               className="dropdown"
-              style={{left: dropdownPosition.x, top: dropdownPosition.y + 60 }}
+              style={{left: dropdownPosition.x + 10, top: dropdownPosition.y + 55 }}
             >
               <div>
                 <p>Character 1</p>
@@ -143,11 +158,24 @@ const Game = () => {
               onClick={handleTargetBoxClick}
             />
           </div>
+          {dropdownVisible && (
+            <div
+              className="dropdown"
+              style={{left: dropdownPosition.x + 10, top: dropdownPosition.y + 55 }}
+            >
+              <div>
+                <p>Character 1</p>
+                <p>Character 2</p>
+                <p>Character 3</p>
+                <p>Character 4</p>
+              </div>
+            </div>
+          )}  
         </>
       ) : (
         <h1>{name} is not a game.</h1>
       )}
-    </>
+    </div>
   );
 };
 
