@@ -8,7 +8,6 @@ import "../styles/Game.scss";
 
 const Game = () => {
   const [timer, setTimer] = useState(0);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [naturalDimension, setNaturalDimension] = useState({
     naturalWidth: 0,
     naturalHeight: 0,
@@ -20,6 +19,12 @@ const Game = () => {
   const [coords, setCoords] = useState({ width: 0, height: 0 });
   const [xScale, setXScale] = useState(0);
   const [yScale, setYScale] = useState(0);
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [dropdownPosition, setDropdownPosition] = useState({ x: 0, y: 0 });
+
+  const tolerances = {
+    1: [450, 480],
+  }
 
   const { name } = useParams();
 
@@ -33,11 +38,6 @@ const Game = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Tracking where the mouse is on page
-  const handleMouseMove = (event) => {
-    setMousePosition({ x: event.clientX, y: event.clientY });
-  }
-
   const handleImageLoad = (e) => {
     setNaturalDimension({
       naturalWidth: e.currentTarget.naturalWidth,
@@ -50,12 +50,9 @@ const Game = () => {
     });
   };
 
-  useEffect(() => {
-    setXScale(imgDimension.width / naturalDimension.naturalWidth);
-    setYScale(imgDimension.height / naturalDimension.naturalHeight);
+  const selectCharacter = () => {
 
-    console.log(coords.width / xScale, coords.height / yScale);
-  }, [imgDimension]);
+  }
 
   const handleTargetBoxClick = (e) => {
     const { clientX, clientY } = e;
@@ -74,13 +71,27 @@ const Game = () => {
       width: coordWidth,
       height: coordHeight,
     });
+
+    setDropdownPosition({
+      x: coordWidth,
+      y: coordHeight,
+    });
+
+    setDropdownVisible(prevVisibility => !prevVisibility);
+    selectCharacter();
   };
+
+  useEffect(() => {
+    setXScale(imgDimension.width / naturalDimension.naturalWidth);
+    setYScale(imgDimension.height / naturalDimension.naturalHeight);
+  }, [imgDimension]);
+
+  useEffect(() => {
+    console.log(coords.width / xScale, coords.height / yScale);
+  }, [xScale, yScale, coords]);
 
   return (
     <>
-      <h1>Mouse Tracker</h1>
-      <p>Mouse X: {mousePosition.x}</p>
-      <p>Mouse Y: {mousePosition.y}</p>
       {name === "nintendo" ? (
         <>
           <GameHeader game={name} timer={timer.toFixed()} />
@@ -90,7 +101,6 @@ const Game = () => {
               src={Nintendo64}
               alt="nintendo-game"
               onLoad={handleImageLoad}
-              onMouseMove={handleMouseMove}
               onClick={handleTargetBoxClick}
             />
           </div>
@@ -104,10 +114,22 @@ const Game = () => {
               src={Prehistoria}
               alt="prehistoria-game"
               onLoad={handleImageLoad}
-              onMouseMove={handleMouseMove}
               onClick={handleTargetBoxClick}
             />
           </div>
+          {dropdownVisible && (
+            <div
+              className="dropdown"
+              style={{left: dropdownPosition.x, top: dropdownPosition.y + 60 }}
+            >
+              <div>
+                <p>Character 1</p>
+                <p>Character 2</p>
+                <p>Character 3</p>
+                <p>Character 4</p>
+              </div>
+            </div>
+          )}    
         </>
       ) : name === "dragon" ? (
         <>
@@ -118,7 +140,6 @@ const Game = () => {
               src={DragonIsland}
               alt="dragon-island-game"
               onLoad={handleImageLoad}
-              onMouseMove={handleMouseMove}
               onClick={handleTargetBoxClick}
             />
           </div>
