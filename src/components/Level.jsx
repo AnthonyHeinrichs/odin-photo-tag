@@ -12,8 +12,21 @@ const Level = ({
   return (
     <>
       <div className="game__header">
-        <h1>{game}</h1>
-        <p>{timer} seconds</p>
+        <p className="game__header__timer">{timer} seconds</p>
+        <h1 className="game__header__title">{game}</h1>
+        <div className="game__header__characters">
+          <p>Find us:</p>
+          <div>
+            {characters.map((character) => (
+              <img key={character.name} src={character.image} alt={character.name}></img>
+            ))}
+          </div>
+        </div>
+      </div>
+      <div className="character__header">
+        {characters.map((character) => (
+          <img key={character.name} src={character.image} alt={character.name}></img>
+        ))}
       </div>
       <div className="search">
         <img
@@ -32,7 +45,7 @@ const Level = ({
             top: dropdownPosition.y + 55,
           }}
         >
-          <div>
+          <div className="dropdown__characters">
             {characters.map((character, index) => (
               <img key={index} src={character.image} alt={character.name}></img>
             ))}

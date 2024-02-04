@@ -1,33 +1,63 @@
 .game__page {
-  cursor: none;
-}
-
-.circular_cursor {
-  position: absolute;
-  width: 20px; 
-  height: 20px;
-  border-radius: 50%;
-  background-color: transparent; 
-  border: 3px solid red;
-  pointer-events: none; 
-  transform: translate(-50%, -50%);
-  transition: all 0.1s ease; 
+  cursor: url('/red-cursor.png'), no-drop;
 }
 
 .game__header {
   background-color: black;
   color: white;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+
+  &__characters {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.character__header {
+  display: none;
 }
 
 .search {
+  position: relative;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow-x: hidden;
+  justify-content: flex-start;
+}
 
-  &__img {
-    width: 100vw;
+.search__img {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+@media (max-width: 850px) {
+  .game__header {
+    display: none;
+  }
+
+  .character__header {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 5px;
+    background: black;
+    color: white;
+    border-radius: 5px;
+    border: solid white 1px;
+    z-index: 2;
+  }
+
+  .search__img {
+    min-width: 1200px;
+    overflow: visible;
   }
 }
 
@@ -35,7 +65,13 @@
   background-color: black;
   color: white;
   border-radius: 5px;
+  border: solid white 1px;
   padding: 5px;
   position: absolute;
   cursor: pointer;
+
+  &__characters {
+    display: flex;
+    flex-direction: column;
+  }
 }

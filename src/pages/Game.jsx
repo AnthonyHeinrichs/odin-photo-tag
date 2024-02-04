@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import CircularCursor from '../components/CircularCursor';
 import Level from '../components/Level';
 import Nintendo64 from '/nintendo64.png';
 import Prehistoria from '/levels/prehistoria/prehistoria.png';
+import Sheep from '/levels/prehistoria/sheep.png';
+import Tails from '/levels/prehistoria/tails.png';
+import Toucan from '/levels/prehistoria/toucan.png';
 import DragonIsland from '/dragon-island.png';
 import '../styles/Game.scss';
 
@@ -55,7 +57,13 @@ const Game = () => {
     const imgWidth = e.currentTarget.clientWidth;
     const imgHeight = e.currentTarget.clientHeight;
     const coordWidth = clientX - rect.left;
-    const coordHeight = clientY - rect.top;
+    let coordHeight = 0;
+
+    if (e.view.outerWidth > 850) {
+      coordHeight = clientY - rect.top + 20;
+    } else {
+      coordHeight = clientY - rect.top - 50;
+    }
 
     setImgDimension({
       width: imgWidth,
@@ -93,6 +101,11 @@ const Game = () => {
     prehistoria: {
       image: Prehistoria,
       altImage: 'prehistoria-game',
+      characters: [
+        { name: 'Sheep', image: Sheep },
+        { name: 'Tails', image: Tails },
+        { name: 'Toucan', image: Toucan },
+      ],
     },
     dragon: {
       image: DragonIsland,
@@ -101,10 +114,10 @@ const Game = () => {
   };
 
   const selectedLevelData = levelData[name];
+  const characters = selectedLevelData ? selectedLevelData.characters : [];
 
   return (
     <div className="game__page">
-      <CircularCursor />
       {selectedLevelData ? (
         <Level
           game={name}
@@ -115,6 +128,7 @@ const Game = () => {
           handleTargetBoxClick={handleTargetBoxClick}
           dropdownVisible={dropdownVisible}
           dropdownPosition={dropdownPosition}
+          characters={characters}
         />
       ) : (
         <h1>{name} is not a game.</h1>
