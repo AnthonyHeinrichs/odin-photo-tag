@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import CircularCursor from "../components/CircularCursor";
 import GameHeader from "../components/GameHeader"
 import Nintendo64 from "/nintendo64.png";
-import Prehistoria from "/prehistoria.png";
+import Prehistoria from "/levels/prehistoria/prehistoria.png";
 import DragonIsland from "/dragon-island.png";
 import "../styles/Game.scss";
 
@@ -22,10 +22,6 @@ const Game = () => {
   const [yScale, setYScale] = useState(0);
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [dropdownPosition, setDropdownPosition] = useState({ x: 0, y: 0 });
-
-  const tolerances = {
-    1: [450, 480],
-  }
 
   const { name } = useParams();
 
