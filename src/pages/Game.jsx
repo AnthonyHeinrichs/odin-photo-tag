@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import CircularCursor from "../components/CircularCursor";
-import GameHeader from "../components/GameHeader"
-import Nintendo64 from "/nintendo64.png";
-import Prehistoria from "/levels/prehistoria/prehistoria.png";
-import DragonIsland from "/dragon-island.png";
-import "../styles/Game.scss";
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import CircularCursor from '../components/CircularCursor';
+import Level from '../components/Level';
+import Nintendo64 from '/nintendo64.png';
+import Prehistoria from '/prehistoria.png';
+import DragonIsland from '/dragon-island.png';
+import '../styles/Game.scss';
 
 const Game = () => {
   const [timer, setTimer] = useState(0);
@@ -47,9 +47,7 @@ const Game = () => {
     });
   };
 
-  const selectCharacter = () => {
-
-  }
+  const selectCharacter = () => {};
 
   const handleTargetBoxClick = (e) => {
     const { clientX, clientY } = e;
@@ -74,7 +72,7 @@ const Game = () => {
       y: coordHeight,
     });
 
-    setDropdownVisible(prevVisibility => !prevVisibility);
+    setDropdownVisible((prevVisibility) => !prevVisibility);
     selectCharacter();
   };
 
@@ -90,84 +88,39 @@ const Game = () => {
   return (
     <div className="game__page">
       <CircularCursor />
-      {name === "nintendo" ? (
-        <>
-          <GameHeader game={name} timer={timer.toFixed()} />
-          <div className="search">
-            <img
-              className="search__img"
-              src={Nintendo64}
-              alt="nintendo-game"
-              onLoad={handleImageLoad}
-              onClick={handleTargetBoxClick}
-            />
-          </div>
-          {dropdownVisible && (
-            <div
-              className="dropdown"
-              style={{left: dropdownPosition.x + 10, top: dropdownPosition.y + 55 }}
-            >
-              <div>
-                <p>Character 1</p>
-                <p>Character 2</p>
-                <p>Character 3</p>
-                <p>Character 4</p>
-              </div>
-            </div>
-          )}  
-        </>
-      ) : name === "prehistoria" ? (
-        <>
-          <GameHeader game={name} timer={timer.toFixed()} />
-          <div className="search">
-            <img
-              className="search__img"
-              src={Prehistoria}
-              alt="prehistoria-game"
-              onLoad={handleImageLoad}
-              onClick={handleTargetBoxClick}
-            />
-          </div>
-          {dropdownVisible && (
-            <div
-              className="dropdown"
-              style={{left: dropdownPosition.x + 10, top: dropdownPosition.y + 55 }}
-            >
-              <div>
-                <p>Character 1</p>
-                <p>Character 2</p>
-                <p>Character 3</p>
-                <p>Character 4</p>
-              </div>
-            </div>
-          )}    
-        </>
-      ) : name === "dragon" ? (
-        <>
-          <GameHeader game={name} timer={timer.toFixed()} />
-          <div className="search">
-            <img
-              className="search__img"
-              src={DragonIsland}
-              alt="dragon-island-game"
-              onLoad={handleImageLoad}
-              onClick={handleTargetBoxClick}
-            />
-          </div>
-          {dropdownVisible && (
-            <div
-              className="dropdown"
-              style={{left: dropdownPosition.x + 10, top: dropdownPosition.y + 55 }}
-            >
-              <div>
-                <p>Character 1</p>
-                <p>Character 2</p>
-                <p>Character 3</p>
-                <p>Character 4</p>
-              </div>
-            </div>
-          )}  
-        </>
+      {name === 'nintendo' ? (
+        <Level
+          game={name}
+          timer={timer.toFixed()}
+          image={Nintendo64}
+          altImage="nintendo-game"
+          handleImageLoad={handleImageLoad}
+          handleTargetBoxClick={handleTargetBoxClick}
+          dropdownVisible={dropdownVisible}
+          dropdownPosition={dropdownPosition}
+        />
+      ) : name === 'prehistoria' ? (
+        <Level
+          game={name}
+          timer={timer.toFixed()}
+          image={Prehistoria}
+          altImage="prehistoria-game"
+          handleImageLoad={handleImageLoad}
+          handleTargetBoxClick={handleTargetBoxClick}
+          dropdownVisible={dropdownVisible}
+          dropdownPosition={dropdownPosition}
+        />
+      ) : name === 'dragon' ? (
+        <Level
+          game={name}
+          timer={timer.toFixed()}
+          image={DragonIsland}
+          altImage="dragon-island"
+          handleImageLoad={handleImageLoad}
+          handleTargetBoxClick={handleTargetBoxClick}
+          dropdownVisible={dropdownVisible}
+          dropdownPosition={dropdownPosition}
+        />
       ) : (
         <h1>{name} is not a game.</h1>
       )}
