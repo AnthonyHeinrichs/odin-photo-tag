@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import CircularCursor from '../components/CircularCursor';
 import Level from '../components/Level';
 import Nintendo64 from '/nintendo64.png';
-import Prehistoria from '/prehistoria.png';
+import Prehistoria from '/levels/prehistoria/prehistoria.png';
 import DragonIsland from '/dragon-island.png';
 import '../styles/Game.scss';
 
@@ -85,37 +85,32 @@ const Game = () => {
     console.log(coords.width / xScale, coords.height / yScale);
   }, [xScale, yScale, coords]);
 
+  const levelData = {
+    nintendo: {
+      image: Nintendo64,
+      altImage: 'nintendo-game',
+    },
+    prehistoria: {
+      image: Prehistoria,
+      altImage: 'prehistoria-game',
+    },
+    dragon: {
+      image: DragonIsland,
+      altImage: 'dragon-island',
+    },
+  };
+
+  const selectedLevelData = levelData[name];
+
   return (
     <div className="game__page">
       <CircularCursor />
-      {name === 'nintendo' ? (
+      {selectedLevelData ? (
         <Level
           game={name}
           timer={timer.toFixed()}
-          image={Nintendo64}
-          altImage="nintendo-game"
-          handleImageLoad={handleImageLoad}
-          handleTargetBoxClick={handleTargetBoxClick}
-          dropdownVisible={dropdownVisible}
-          dropdownPosition={dropdownPosition}
-        />
-      ) : name === 'prehistoria' ? (
-        <Level
-          game={name}
-          timer={timer.toFixed()}
-          image={Prehistoria}
-          altImage="prehistoria-game"
-          handleImageLoad={handleImageLoad}
-          handleTargetBoxClick={handleTargetBoxClick}
-          dropdownVisible={dropdownVisible}
-          dropdownPosition={dropdownPosition}
-        />
-      ) : name === 'dragon' ? (
-        <Level
-          game={name}
-          timer={timer.toFixed()}
-          image={DragonIsland}
-          altImage="dragon-island"
+          image={selectedLevelData.image}
+          altImage={selectedLevelData.altImage}
           handleImageLoad={handleImageLoad}
           handleTargetBoxClick={handleTargetBoxClick}
           dropdownVisible={dropdownVisible}
