@@ -1,46 +1,60 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useTheme } from "./components/ThemeContext";
-import "./styles/App.scss";
-import Header from "./components/Header";
-import GameCard from "./components/GameCard";
-import nintendoCard from "/nintendo64-card.png";
-import prehistoriaCard from "/prehistoria-card.png";
-import dragonIslandCard from "/dragon-island-card.png";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useTheme } from './components/ThemeContext';
+import './styles/App.scss';
+import Header from './components/Header';
+import GameCard from './components/GameCard';
+import nintendoCard from '/nintendo64-card.png';
+import prehistoriaCard from '/levels/prehistoria/prehistoria-card.png';
+import dragonIslandCard from '/dragon-island-card.png';
 
 function App() {
   const { theme } = useTheme();
 
+  const levelData = {
+    nintendo: {
+      path: '/game/nintendo',
+      image: nintendoCard,
+      alt: 'nintendo-64',
+      title: 'Nintendo 64',
+      difficulty: 'Easy',
+    },
+    prehistoria: {
+      path: '/game/prehistoria',
+      image: prehistoriaCard,
+      alt: 'prehistoria',
+      title: 'Prehistoria',
+      difficulty: 'Medium',
+    },
+    dragon: {
+      path: '/game/dragon',
+      image: dragonIslandCard,
+      alt: 'dragon-island',
+      title: "Dragon Charmer's Island",
+      difficulty: 'Hard',
+    },
+  };
+
   return (
     <>
-      <Header theme={theme}/>
+      <Header theme={theme} />
       <main className={`main main__${theme}`}>
-        <h1  className="title">Choose a Level</h1>
+        <h1 className="title">Choose a Level</h1>
         <div className="games">
-          <Link className={`games__link games__link_${theme}`} to="/game/nintendo">
-            <GameCard 
-            image={nintendoCard} 
-            alt="nintendo-64" 
-            title="Nintendo 64" 
-            difficulty="Easy"
-            />
-          </Link>
-          <Link className={`games__link games__link_${theme}`} to="/game/prehistoria">
-            <GameCard 
-            image={prehistoriaCard} 
-            alt="prehistoria" 
-            title="Prehistoria" 
-            difficulty="Medium"
-            />
-          </Link>
-          <Link className={`games__link games__link_${theme}`} to="/game/dragon">
-            <GameCard 
-            image={dragonIslandCard} 
-            alt="dragon-island" 
-            title="Dragon Charmer's Island" 
-            difficulty="Hard"
-            />
-          </Link>
+          {Object.keys(levelData).map((levelName) => (
+            <Link
+              key={levelName}
+              className={`games__link games__link_${theme}`}
+              to={levelData[levelName].path}
+            >
+              <GameCard
+                image={levelData[levelName].image}
+                alt={levelData[levelName].alt}
+                title={levelData[levelName].title}
+                difficulty={levelData[levelName].difficulty}
+              />
+            </Link>
+          ))}
         </div>
         <div className="leaderboard">
           <Link to="/leaderboard">
@@ -49,7 +63,7 @@ function App() {
         </div>
       </main>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

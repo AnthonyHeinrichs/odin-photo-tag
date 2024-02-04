@@ -7,11 +7,8 @@ const Level = ({
   handleTargetBoxClick,
   dropdownVisible,
   dropdownPosition,
+  characters
 }) => {
-  if (game === 'prehistoria') {
-    // characters
-  }
-
   return (
     <>
       <div className="game__header">
@@ -36,9 +33,9 @@ const Level = ({
           }}
         >
           <div>
-            <p>Character 1</p>
-            <p>Character 2</p>
-            <p>Character 3</p>
+            {characters.map((character, index) => (
+              <img key={index} src={character.image} alt={character.name}></img>
+            ))}
           </div>
         </div>
       )}
