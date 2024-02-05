@@ -1,31 +1,43 @@
+import Timer from '../helpers/Timer';
+
 const Level = ({
   game,
-  timer,
   image,
   altImage,
   handleImageLoad,
   handleTargetBoxClick,
   dropdownVisible,
   dropdownPosition,
-  characters
+  characters,
+  handleCharacterSelection,
 }) => {
   return (
     <>
       <div className="game__header">
-        <p className="game__header__timer">{timer} seconds</p>
+        <p className="game__header__timer">
+          <Timer /> seconds
+        </p>
         <h1 className="game__header__title">{game}</h1>
         <div className="game__header__characters">
           <p>Find us:</p>
           <div>
             {characters.map((character) => (
-              <img key={character.name} src={character.image} alt={character.name}></img>
+              <img
+                key={character.name}
+                src={character.image}
+                alt={character.name}
+              ></img>
             ))}
           </div>
         </div>
       </div>
       <div className="character__header">
         {characters.map((character) => (
-          <img key={character.name} src={character.image} alt={character.name}></img>
+          <img
+            key={character.name}
+            src={character.image}
+            alt={character.name}
+          ></img>
         ))}
       </div>
       <div className="search">
@@ -47,7 +59,15 @@ const Level = ({
         >
           <div className="dropdown__characters">
             {characters.map((character, index) => (
-              <img key={index} src={character.image} alt={character.name}></img>
+              <img
+                key={index}
+                src={character.image}
+                alt={character.name}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleCharacterSelection(character.name);
+                }}
+              />
             ))}
           </div>
         </div>

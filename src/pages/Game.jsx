@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import Level from '../components/Level';
 import Nintendo64 from '/nintendo64.png';
@@ -10,7 +10,7 @@ import DragonIsland from '/dragon-island.png';
 import '../styles/Game.scss';
 
 const Game = () => {
-  const [timer, setTimer] = useState(0);
+  const [characterLocations, setCharacterLocations] = useState([]);
   const [naturalDimension, setNaturalDimension] = useState({
     naturalWidth: 0,
     naturalHeight: 0,
@@ -26,15 +26,27 @@ const Game = () => {
   const [dropdownPosition, setDropdownPosition] = useState({ x: 0, y: 0 });
 
   const { name } = useParams();
+  const apiKey = import.meta.env.VITE_API_KEY;
 
-  // Handling our interval for game timer
+  const fetchCharacterLocations = async () => {
+    try {
+      const resp = await fetch('http://localhost:5000/games', {
+        headers: {
+          'X-API-Key': apiKey,
+        },
+      });
+      const json = await resp.json();
+
+      const gameLocationData = json.games.find((level) => level.name === name);
+
+      setCharacterLocations(gameLocationData);
+    } catch (error) {
+      console.error('Error fetching character locations', error);
+    }
+  };
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTimer((prevTimer) => prevTimer + 0.1);
-    }, 100);
-
-    return () => clearInterval(interval);
+    fetchCharacterLocations();
   }, []);
 
   const handleImageLoad = (e) => {
@@ -49,7 +61,24 @@ const Game = () => {
     });
   };
 
-  const selectCharacter = () => {};
+  const handleCharacterSelection = (character) => {
+    const actualX = characterLocations[character].locationX 
+    const actualY = characterLocations[character].locationY 
+    const guessX = coords.width / xScale;
+    const guessY = coords.height / yScale;
+    const tolerance = 50;
+    const isWithinToleranceX = Math.abs(actualX - guessX) <= tolerance;
+    const isWithinToleranceY = Math.abs(actualY - guessY) <= tolerance;
+
+    if (isWithinToleranceX && isWithinToleranceY) {
+      console.log(`${character} is within the tolerance.`);
+    } else {
+      console.log(`${character} is not within the tolerance.`);
+    }
+
+    setDropdownVisible(false);
+    return;
+  };
 
   const handleTargetBoxClick = (e) => {
     const { clientX, clientY } = e;
@@ -57,13 +86,7 @@ const Game = () => {
     const imgWidth = e.currentTarget.clientWidth;
     const imgHeight = e.currentTarget.clientHeight;
     const coordWidth = clientX - rect.left;
-    let coordHeight = 0;
-
-    if (e.view.outerWidth > 850) {
-      coordHeight = clientY - rect.top + 20;
-    } else {
-      coordHeight = clientY - rect.top - 50;
-    }
+    const coordHeight = clientY - rect.top;
 
     setImgDimension({
       width: imgWidth,
@@ -75,23 +98,25 @@ const Game = () => {
       height: coordHeight,
     });
 
-    setDropdownPosition({
-      x: coordWidth,
-      y: coordHeight,
-    });
+    if (e.view.outerWidth > 850) {
+      setDropdownPosition({
+        x: coordWidth,
+        y: coordHeight + 20,
+      });
+    } else {
+      setDropdownPosition({
+        x: coordWidth,
+        y: coordHeight - 50,
+      });
+    }
 
     setDropdownVisible((prevVisibility) => !prevVisibility);
-    selectCharacter();
   };
 
   useEffect(() => {
     setXScale(imgDimension.width / naturalDimension.naturalWidth);
     setYScale(imgDimension.height / naturalDimension.naturalHeight);
   }, [imgDimension]);
-
-  useEffect(() => {
-    console.log(coords.width / xScale, coords.height / yScale);
-  }, [xScale, yScale, coords]);
 
   const levelData = {
     nintendo: {
@@ -121,11 +146,11 @@ const Game = () => {
       {selectedLevelData ? (
         <Level
           game={name}
-          timer={timer.toFixed()}
           image={selectedLevelData.image}
           altImage={selectedLevelData.altImage}
           handleImageLoad={handleImageLoad}
           handleTargetBoxClick={handleTargetBoxClick}
+          handleCharacterSelection={handleCharacterSelection}
           dropdownVisible={dropdownVisible}
           dropdownPosition={dropdownPosition}
           characters={characters}
