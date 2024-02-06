@@ -1,4 +1,4 @@
-import Timer from '../helpers/Timer';
+import { useState, useEffect } from 'react';
 
 const Level = ({
   game,
@@ -6,20 +6,36 @@ const Level = ({
   altImage,
   handleImageLoad,
   handleTargetBoxClick,
+  handleCharacterSelection,
+  handleWin,
   dropdownVisible,
   dropdownPosition,
   characters,
-  handleCharacterSelection,
 }) => {
+  const [showSec, setShowSec] = useState(0);
+
+  // Initializing a timer
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setShowSec((prevShowSec) => prevShowSec + 0.1);
+    }, 100);
+
+    if (characters.length === 0) {
+      clearInterval(timer);
+      handleWin((showSec).toFixed(1));
+    }
+
+    return () => clearInterval(timer);
+  }, [showSec]);
+
   return (
     <>
       <div className="game__header">
-        <p className="game__header__timer">
-          <Timer /> seconds
-        </p>
         <h1 className="game__header__title">{game}</h1>
         <div className="game__header__characters">
-          <p>Find us:</p>
+          {characters.length > 0 && (
+            <p>Find {characters.length > 1 ? 'us' : 'me'}:</p>
+          )}
           <div>
             {characters.map((character) => (
               <img

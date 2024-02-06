@@ -11,6 +11,7 @@ import '../styles/Game.scss';
 
 const Game = () => {
   const [characterLocations, setCharacterLocations] = useState([]);
+  const [foundCharacters, setFoundCharacters] = useState([]);
   const [naturalDimension, setNaturalDimension] = useState({
     naturalWidth: 0,
     naturalHeight: 0,
@@ -28,6 +29,40 @@ const Game = () => {
   const { name } = useParams();
   const apiKey = import.meta.env.VITE_API_KEY;
 
+  // Setting some basic data for each of our levels
+  const levelData = {
+    nintendo: {
+      image: Nintendo64,
+      altImage: 'nintendo-game',
+    },
+    prehistoria: {
+      image: Prehistoria,
+      altImage: 'prehistoria-game',
+      characters: [
+        { name: 'Sheep', image: Sheep },
+        { name: 'Tails', image: Tails },
+        { name: 'Toucan', image: Toucan },
+      ],
+    },
+    dragon: {
+      image: DragonIsland,
+      altImage: 'dragon-island',
+    },
+  };
+
+  // Setting that data in variables to pass to the Level component
+  const selectedLevelData = levelData[name];
+  const characters = selectedLevelData ? selectedLevelData.characters : [];
+  const filteredCharacters = characters.filter(
+    (character) => !foundCharacters.includes(character.name)
+  );
+
+  // Handling level completion (win)
+  const handleWin = (time) => {
+    console.log(`You won in ${time} seconds`);
+  };
+
+  // Fetch for location data as locations are hidden in DB
   const fetchCharacterLocations = async () => {
     try {
       const resp = await fetch('http://localhost:5000/games', {
@@ -45,6 +80,7 @@ const Game = () => {
     }
   };
 
+  // Fetching the data once
   useEffect(() => {
     fetchCharacterLocations();
   }, []);
@@ -61,9 +97,10 @@ const Game = () => {
     });
   };
 
+  // Checking if user character selection is in correct location
   const handleCharacterSelection = (character) => {
-    const actualX = characterLocations[character].locationX 
-    const actualY = characterLocations[character].locationY 
+    const actualX = characterLocations[character].locationX;
+    const actualY = characterLocations[character].locationY;
     const guessX = coords.width / xScale;
     const guessY = coords.height / yScale;
     const tolerance = 50;
@@ -71,7 +108,12 @@ const Game = () => {
     const isWithinToleranceY = Math.abs(actualY - guessY) <= tolerance;
 
     if (isWithinToleranceX && isWithinToleranceY) {
-      console.log(`${character} is within the tolerance.`);
+      setFoundCharacters((prevFoundCharacters) => [
+        ...prevFoundCharacters,
+        character,
+      ]);
+      alert(`You found ${character}`);
+      console.log(foundCharacters);
     } else {
       console.log(`${character} is not within the tolerance.`);
     }
@@ -80,6 +122,7 @@ const Game = () => {
     return;
   };
 
+  // Handling user clicks, dropdown location, screen resizing etc.
   const handleTargetBoxClick = (e) => {
     const { clientX, clientY } = e;
     const rect = e.currentTarget.getBoundingClientRect();
@@ -113,33 +156,11 @@ const Game = () => {
     setDropdownVisible((prevVisibility) => !prevVisibility);
   };
 
+  // If the wimmelbilder image is resized, update the X and Y scale
   useEffect(() => {
     setXScale(imgDimension.width / naturalDimension.naturalWidth);
     setYScale(imgDimension.height / naturalDimension.naturalHeight);
   }, [imgDimension]);
-
-  const levelData = {
-    nintendo: {
-      image: Nintendo64,
-      altImage: 'nintendo-game',
-    },
-    prehistoria: {
-      image: Prehistoria,
-      altImage: 'prehistoria-game',
-      characters: [
-        { name: 'Sheep', image: Sheep },
-        { name: 'Tails', image: Tails },
-        { name: 'Toucan', image: Toucan },
-      ],
-    },
-    dragon: {
-      image: DragonIsland,
-      altImage: 'dragon-island',
-    },
-  };
-
-  const selectedLevelData = levelData[name];
-  const characters = selectedLevelData ? selectedLevelData.characters : [];
 
   return (
     <div className="game__page">
@@ -151,9 +172,10 @@ const Game = () => {
           handleImageLoad={handleImageLoad}
           handleTargetBoxClick={handleTargetBoxClick}
           handleCharacterSelection={handleCharacterSelection}
+          handleWin={handleWin}
           dropdownVisible={dropdownVisible}
           dropdownPosition={dropdownPosition}
-          characters={characters}
+          characters={filteredCharacters}
         />
       ) : (
         <h1>{name} is not a game.</h1>
