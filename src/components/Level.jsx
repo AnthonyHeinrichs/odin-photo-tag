@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import AddScoreForm from './AddScore';
 
 const Level = ({
   game,
@@ -12,21 +13,23 @@ const Level = ({
   dropdownPosition,
   characters,
 }) => {
-  const [showSec, setShowSec] = useState(0);
+  const [sec, setSec] = useState(0);
+  const [gameOver, setGameOver] = useState(false);
 
   // Initializing a timer
   useEffect(() => {
     const timer = setInterval(() => {
-      setShowSec((prevShowSec) => prevShowSec + 0.1);
+      setSec((prevsec) => prevsec + 0.1);
     }, 100);
 
     if (characters.length === 0) {
       clearInterval(timer);
-      handleWin((showSec).toFixed(1));
+      setGameOver(true);
+      handleWin((sec).toFixed(2));
     }
 
     return () => clearInterval(timer);
-  }, [showSec]);
+  }, [sec]);
 
   return (
     <>
@@ -88,6 +91,7 @@ const Level = ({
           </div>
         </div>
       )}
+      {gameOver && <AddScoreForm level={game} time={sec.toFixed(2)} />}
     </>
   );
 };

@@ -178,7 +178,7 @@ const Game = () => {
           characters={filteredCharacters}
         />
       ) : (
-        <h1>{name} is not a game.</h1>
+        <h1>{name} is not currently available.</h1>
       )}
     </div>
   );
