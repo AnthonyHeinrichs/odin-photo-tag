@@ -1,6 +1,7 @@
 const express = require('express');
 const Score = require('./models/score');
 const Game = require('./models/game');
+const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require("mongoose");
 const port = 5000;
@@ -10,8 +11,9 @@ require('dotenv').config()
 
 const app = express();
 
-// Enable CORS for all routes
+// Enable CORS and parsing for routes
 app.use(cors());
+app.use(bodyParser.json());
 
 // Set up mongoose connection
 const mongoDb = process.env.MONGODB_URI;
@@ -19,7 +21,7 @@ mongoose.connect(mongoDb);
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'mongo connection error'));
 
-// Setup routes
+// Bring in API key
 const API_KEY = process.env.API_KEY;
 
 // Middleware to verify API key
@@ -47,7 +49,7 @@ app.get('/games', verifyApiKey, async (req, res) => {
 
 app.get('/leaderboard', verifyApiKey, async (req, res) => {
   try {
-    const scores = await Score.find({}, { _id: 0, __v: 0 });
+    const scores = await Score.find({}, { __v: 0 });
 
     res.json({ scores });
   } catch (error) {
@@ -58,9 +60,11 @@ app.get('/leaderboard', verifyApiKey, async (req, res) => {
 
 app.post('/leaderboard', verifyApiKey, async (req, res) => {
   try {
-    const { name, time } = req.body;
+    console.log(req.body);
+    const { level, name, time } = req.body;
 
     const newScore = new Score({
+      level,
       name,
       time,
     });
