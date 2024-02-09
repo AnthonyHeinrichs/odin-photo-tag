@@ -10,7 +10,7 @@ const Header = () => {
   return (
     <div className={`header header__${theme}`}>
       <Link to="/">
-        <img className="header__logo" src={headerIcon} alt="nintendo-64" />
+        <img className="header__logo" src={headerIcon} alt="world-search" />
       </Link>
       <div className={`header__title header__title__${theme}`}>
         <h1 className="header__title__main">Hidden</h1>

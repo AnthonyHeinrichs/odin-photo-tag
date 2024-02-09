@@ -1,12 +1,18 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import Level from '../components/Level';
-import Nintendo64 from '/nintendo64.png';
 import Prehistoria from '/levels/prehistoria/prehistoria.png';
 import Sheep from '/levels/prehistoria/sheep.png';
 import Tails from '/levels/prehistoria/tails.png';
 import Toucan from '/levels/prehistoria/toucan.png';
-import DragonIsland from '/dragon-island.png';
+import oliverCity from '/levels/oliver-city/oliver-city.png';
+import Oliver from '/levels/oliver-city/oliver.png';
+import Car from '/levels/oliver-city/car.png';
+import Frog from '/levels/oliver-city/frog.png';
+import DragonIsland from '/levels/dragon-island/dragon-island.png';
+import Cat from '/levels/dragon-island/cat.png';
+import Heart from '/levels/dragon-island/heart.png';
+import Robot from '/levels/dragon-island/robot.png';
 import '../styles/Game.scss';
 
 const Game = () => {
@@ -31,9 +37,14 @@ const Game = () => {
 
   // Setting some basic data for each of our levels
   const levelData = {
-    nintendo: {
-      image: Nintendo64,
-      altImage: 'nintendo-game',
+    oliver: {
+      image: oliverCity,
+      altImage: 'oliver-city',
+      characters: [
+        { name: 'Oliver', image: Oliver },
+        { name: 'Car', image: Car },
+        { name: 'Frog', image: Frog },
+      ],
     },
     prehistoria: {
       image: Prehistoria,
@@ -47,6 +58,11 @@ const Game = () => {
     dragon: {
       image: DragonIsland,
       altImage: 'dragon-island',
+      characters: [
+        { name: 'Cat', image: Cat },
+        { name: 'Heart', image: Heart },
+        { name: 'Robot', image: Robot },
+      ],
     },
   };
 
@@ -103,16 +119,18 @@ const Game = () => {
     const actualY = characterLocations[character].locationY;
     const guessX = coords.width / xScale;
     const guessY = coords.height / yScale;
-    const tolerance = 50;
+    const tolerance = 100;
     const isWithinToleranceX = Math.abs(actualX - guessX) <= tolerance;
     const isWithinToleranceY = Math.abs(actualY - guessY) <= tolerance;
+
+    console.log(guessX, guessY);
 
     if (isWithinToleranceX && isWithinToleranceY) {
       setFoundCharacters((prevFoundCharacters) => [
         ...prevFoundCharacters,
         character,
       ]);
-      alert(`You found ${character}`);
+      alert(`${character} found!`);
       console.log(foundCharacters);
     } else {
       console.log(`${character} is not within the tolerance.`);

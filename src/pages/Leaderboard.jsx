@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useTheme } from '../components/ThemeContext';
 import Header from '../components/Header';
-import nintendoCard from '/nintendo64-card.png';
+import oliverCityCard from '/levels/oliver-city/oliver-city-card.png';
 import prehistoriaCard from '/levels/prehistoria/prehistoria-card.png'; // Update paths
-import dragonIslandCard from '/dragon-island-card.png';
+import dragonIslandCard from '/levels/dragon-island/dragon-island-card.png';
 import '../styles/Leaderboard.scss';
 
 const Leaderboard = () => {
   const [leaderboardData, setLeaderboardData] = useState({
     prehistoria: [],
-    'dragon Island': [],
-    nintendo: [],
+    'Dragon Island': [],
+    'Oliver City': [],
   });
   const [selectedLevel, setSelectedLevel] = useState('prehistoria');
 
@@ -33,16 +33,16 @@ const Leaderboard = () => {
             acc[score.level].push(score);
             return acc;
           },
-          { prehistoria: [], 'dragon Island': [], nintendo: [] }
+          { prehistoria: [], dragon: [], oliver: [] }
         );
         setLeaderboardData({
           prehistoria: organizedData.prehistoria
             .sort((a, b) => b.score - a.score)
             .slice(0, 10),
-          'dragon Island': organizedData['dragon Island']
+          'Dragon Island': organizedData.dragon
             .sort((a, b) => b.score - a.score)
             .slice(0, 10),
-          nintendo: organizedData.nintendo
+          'Oliver City': organizedData.oliver
             .sort((a, b) => b.score - a.score)
             .slice(0, 10),
         });
@@ -76,9 +76,9 @@ const Leaderboard = () => {
               src={
                 level === 'prehistoria'
                   ? prehistoriaCard
-                  : level === 'dragon Island'
+                  : level === 'Dragon Island'
                   ? dragonIslandCard
-                  : nintendoCard
+                  : oliverCityCard
               }
               className="leaderboard_level__imgs"
               onClick={() => handleLevelSelection(level)}
