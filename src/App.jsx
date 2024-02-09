@@ -36,9 +36,9 @@ function App() {
   };
 
   return (
-    <>
+    <div className={`app_main main__${theme}`}>
       <Header theme={theme} />
-      <main className={`main main__${theme}`}>
+      <main className='main'>
         <h1 className="title">Choose a Level</h1>
         <div className="games">
           {Object.keys(levelData).map((levelName) => (
@@ -56,13 +56,13 @@ function App() {
             </Link>
           ))}
         </div>
-        <div className="leaderboard">
+        <div className="leaderboard_title">
           <Link to="/leaderboard">
             <h4>View Leaderboard</h4>
           </Link>
         </div>
       </main>
-    </>
+    </div>
   );
 }
 
