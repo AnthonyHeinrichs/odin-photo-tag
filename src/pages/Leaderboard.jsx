@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
+import { useTheme } from '../components/ThemeContext';
 import Header from '../components/Header';
-import nintendoCard from '/nintendo64-card.png'; 
+import nintendoCard from '/nintendo64-card.png';
 import prehistoriaCard from '/levels/prehistoria/prehistoria-card.png'; // Update paths
-import dragonIslandCard from '/dragon-island-card.png'; 
-import '../styles/Leaderboard.scss'
+import dragonIslandCard from '/dragon-island-card.png';
+import '../styles/Leaderboard.scss';
 
 const Leaderboard = () => {
   const [leaderboardData, setLeaderboardData] = useState({
@@ -11,6 +12,9 @@ const Leaderboard = () => {
     'dragon Island': [],
     nintendo: [],
   });
+  const [selectedLevel, setSelectedLevel] = useState('prehistoria');
+
+  const { theme } = useTheme();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,13 +54,24 @@ const Leaderboard = () => {
     fetchData();
   }, []);
 
+  const handleLevelSelection = (name) => {
+    setSelectedLevel(name);
+  };
+
   return (
-    <>
+    <div className={`leaderboard main__${theme}`}>
       <Header />
-      <h1>Leaderboard</h1>
-      <div className='leaderboard_levels'>
+      <h1 className='leaderboard_title'>Leaderboard</h1>
+      <div className="leaderboard_levels">
         {Object.entries(leaderboardData).map(([level, scores]) => (
-          <div key={level}>
+          <div
+            key={level}
+            className={`leaderboard_level ${
+              selectedLevel === level
+                ? 'leaderboard_level__selected'
+                : 'leaderboard_level__not_selected'
+            }`}
+          >
             <img
               src={
                 level === 'prehistoria'
@@ -65,21 +80,26 @@ const Leaderboard = () => {
                   ? dragonIslandCard
                   : nintendoCard
               }
-              className='leaderboard_levels__imgs'
+              className="leaderboard_level__imgs"
+              onClick={() => handleLevelSelection(level)}
               alt={level}
             ></img>
-            <h2>{level.charAt(0).toUpperCase() + level.slice(1)}</h2>
-            <ol>
-              {scores.map((score) => (
-                <li key={score._id}>
-                  {score.name} - {score.time}
-                </li>
-              ))}
-            </ol>
+            <h2 className="leaderboard_level__title">
+              {level.charAt(0).toUpperCase() + level.slice(1)}
+            </h2>
           </div>
         ))}
       </div>
-    </>
+      <div className="leaderboard_scores">
+        <ol>
+          {leaderboardData[selectedLevel].map((score) => (
+            <li key={score._id}>
+              {score.name} - {score.time}
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
   );
 };
 

@@ -1,4 +1,8 @@
 
+.app_main {
+  height: 100vh;
+}
+
 .header {
   width: 100%;
   box-sizing: border-box;
@@ -42,6 +46,7 @@
   }
 
   &__theme__icon {
+    cursor: pointer;
     height: 40px;
     width: 40px;
   }
@@ -83,9 +88,6 @@
 }
 
 .main {
-  padding-top: 40px;
-  height: 85vh;
-
   &__dark_theme {
     background-color: black;
     color: white;
@@ -101,7 +103,6 @@
   box-sizing: border-box;
   padding: 12px;
   font-weight: 200;
-  width: 100%;
   text-align: center;
 }
 
@@ -124,8 +125,7 @@
   }
 }
 
-.leaderboard {
+.leaderboard_title {
   margin-top: 48px;
-  width: 100%;
   text-align: center;
 }

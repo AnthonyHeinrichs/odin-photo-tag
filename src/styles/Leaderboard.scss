@@ -1,9 +1,43 @@
+.leaderboard {
+  height: 100vh;
+}
+
+.leaderboard_title {
+  display: flex;
+  justify-content: center;
+  margin: 24px;
+}
+
 .leaderboard_levels {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+}
+
+.leaderboard_level {
+  &__imgs {
+    cursor: pointer;
+    width: 200px;
+    height: 100px;
+    object-fit: contain;
+  }
+
+  &__title {
+    text-align: center;
+  }
+
+  &__selected {
+    opacity: 1;
+  }
+
+  &__not_selected {
+    opacity: 0.5;
+  }
+}
+
+.leaderboard_scores {
   display: flex;
   justify-content: center;
   align-items: center;
-
-  &__imgs {
-    width: 200px;
-  }
 }
