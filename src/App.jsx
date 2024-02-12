@@ -4,19 +4,19 @@ import { useTheme } from './components/ThemeContext';
 import './styles/App.scss';
 import Header from './components/Header';
 import GameCard from './components/GameCard';
-import nintendoCard from '/nintendo64-card.png';
+import oliverCityCard from '/levels/oliver-city/oliver-city-card.png';
 import prehistoriaCard from '/levels/prehistoria/prehistoria-card.png';
-import dragonIslandCard from '/dragon-island-card.png';
+import dragonIslandCard from '/levels/dragon-island/dragon-island-card.png';
 
 function App() {
   const { theme } = useTheme();
 
   const levelData = {
-    nintendo: {
-      path: '/game/nintendo',
-      image: nintendoCard,
-      alt: 'nintendo-64',
-      title: 'Nintendo 64',
+    oliver: {
+      path: '/game/oliver',
+      image: oliverCityCard,
+      alt: 'oliver-city',
+      title: 'Oliver City',
       difficulty: 'Easy',
     },
     prehistoria: {
@@ -38,7 +38,7 @@ function App() {
   return (
     <div className={`app_main main__${theme}`}>
       <Header theme={theme} />
-      <main className='main'>
+      <main className="main">
         <h1 className="title">Choose a Level</h1>
         <div className="games">
           {Object.keys(levelData).map((levelName) => (
