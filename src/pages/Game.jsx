@@ -181,7 +181,7 @@ const Game = () => {
   }, [imgDimension]);
 
   return (
-    <div className="game__page">
+    <div>
       {selectedLevelData ? (
         <Level
           game={name}
