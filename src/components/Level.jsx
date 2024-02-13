@@ -39,74 +39,75 @@ const Level = ({
     setGameStart(true);
   };
 
-  return (
+  return  (
     <>
-      <div className='game__page' style={{ display: gameStart ? 'block' : 'none' }}>
-        <div className="game__header">
-          <h1 className="game__header__title">{game}</h1>
-          <div className="game__header__characters">
-            {characters.length > 0 && (
-              <p>Find {characters.length > 1 ? 'us' : 'me'}:</p>
-            )}
-            <div>
-              {characters.map((character) => (
-                <img
-                  key={character.name}
-                  className='character'
-                  src={character.image}
-                  alt={character.name}
-                ></img>
-              ))}
+      {!gameOver && (
+        <div className='game__page' style={{ display: gameStart ? 'block' : 'none' }}>
+          <div className="game__header">
+            <h1 className="game__header__title">{game}</h1>
+            <div className="game__header__characters">
+              {characters.length > 0 && (
+                <p>Find {characters.length > 1 ? 'us' : 'me'}:</p>
+              )}
+              <div>
+                {characters.map((character) => (
+                  <img
+                    key={character.name}
+                    className='character'
+                    src={character.image}
+                    alt={character.name}
+                  ></img>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-        <div className="character__header">
-          {characters.map((character) => (
+          <div className="character__header">
+            {characters.map((character) => (
+              <img
+                key={character.name}
+                className='character'
+                src={character.image}
+                alt={character.name}
+              ></img>
+            ))}
+          </div>
+          <div className="search">
             <img
-              key={character.name}
-              className='character'
-              src={character.image}
-              alt={character.name}
-            ></img>
-          ))}
-        </div>
-        <div className="search">
-          <img
-            className="search__img"
-            src={image}
-            alt={altImage}
-            onLoad={handleImageLoad}
-            onClick={handleTargetBoxClick}
-          />
-        </div>
-        {dropdownVisible && (
-          <div
-            className="dropdown"
-            style={{
-              left: dropdownPosition.x + 10,
-              top: dropdownPosition.y + 55,
-            }}
-          >
-            <div className="dropdown__characters">
-              {characters.map((character, index) => (
-                <img
-                  key={index}
-                  className='character'
-                  src={character.image}
-                  alt={character.name}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleCharacterSelection(character.name);
-                  }}
-                />
-              ))}
-            </div>
+              className="search__img"
+              src={image}
+              alt={altImage}
+              onLoad={handleImageLoad}
+              onClick={handleTargetBoxClick}
+            />
           </div>
-        )}
-        {gameOver && <AddScoreForm level={game} time={sec.toFixed(2)} />}
-      </div>
-
-      {!gameStart && (
+          {dropdownVisible && (
+            <div
+              className="dropdown"
+              style={{
+                left: dropdownPosition.x + 10,
+                top: dropdownPosition.y + 55,
+              }}
+            >
+              <div className="dropdown__characters">
+                {characters.map((character, index) => (
+                  <img
+                    key={index}
+                    className='character'
+                    src={character.image}
+                    alt={character.name}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleCharacterSelection(character.name);
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+      {gameOver && <AddScoreForm level={game} time={sec.toFixed(2)} />}
+      {!gameStart && !gameOver && (
         <div className='start'>
           <div className='start__box'>
             <p>Find these characters</p>

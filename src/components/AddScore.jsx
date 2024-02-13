@@ -47,20 +47,26 @@ const AddScoreForm = ({ level, time }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        className="form_name_input"
-        type="text"
-        id="name"
-        name="name"
-        placeholder="Your nickname..."
-        value={formData.name}
-        onChange={handleInputChange}
-      />
-      <button className="form_submit_btn" type="submit">
-        Submit
-      </button>
-    </form>
+    <div className="score_form">
+      <div className='score_form__content'>
+        <h2>You beat the level in {time} seconds!</h2>
+        <p>If you're happy with your score, add it to the leaderboard!</p>
+        <form onSubmit={handleSubmit}>
+          <input
+            className="form_name_input"
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Your nickname..."
+            value={formData.name}
+            onChange={handleInputChange}
+          />
+          <button className="form_submit_btn" type="submit">
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
   );
 };
 
