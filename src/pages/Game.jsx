@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import Level from '../components/Level';
 import Prehistoria from '/levels/prehistoria/prehistoria.png';
 import Sheep from '/levels/prehistoria/sheep.png';
@@ -13,6 +14,7 @@ import DragonIsland from '/levels/dragon-island/dragon-island.png';
 import Cat from '/levels/dragon-island/cat.png';
 import Heart from '/levels/dragon-island/heart.png';
 import Robot from '/levels/dragon-island/robot.png';
+import 'react-toastify/dist/ReactToastify.css';
 import '../styles/Game.scss';
 
 const Game = () => {
@@ -119,7 +121,7 @@ const Game = () => {
     const actualY = characterLocations[character].locationY;
     const guessX = coords.width / xScale;
     const guessY = coords.height / yScale;
-    const tolerance = 100;
+    const tolerance = 75;
     const isWithinToleranceX = Math.abs(actualX - guessX) <= tolerance;
     const isWithinToleranceY = Math.abs(actualY - guessY) <= tolerance;
 
@@ -130,10 +132,21 @@ const Game = () => {
         ...prevFoundCharacters,
         character,
       ]);
-      alert(`${character} found!`);
-      console.log(foundCharacters);
+      toast(`You found ${character}`, {
+        position: 'bottom-center',
+        hideProgressBar: true,
+        autoClose: 2000,
+        progress: 0,
+        theme: 'dark',
+      });
     } else {
-      console.log(`${character} is not within the tolerance.`);
+      toast.error(`Try again!`, {
+        position: 'bottom-center',
+        hideProgressBar: true,
+        autoClose: 2000,
+        progress: 0,
+        theme: 'dark',
+      });
     }
 
     setDropdownVisible(false);
@@ -198,6 +211,7 @@ const Game = () => {
       ) : (
         <h1>{name} is not currently available.</h1>
       )}
+      <ToastContainer />
     </div>
   );
 };
