@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useTheme } from '../components/ThemeContext';
 import Header from '../components/Header';
 import oliverCityCard from '/levels/oliver-city/oliver-city-card.png';
 import prehistoriaCard from '/levels/prehistoria/prehistoria-card.png'; // Update paths
@@ -13,8 +12,6 @@ const Leaderboard = () => {
     'Oliver City': [],
   });
   const [selectedLevel, setSelectedLevel] = useState('prehistoria');
-
-  const { theme } = useTheme();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,7 +56,7 @@ const Leaderboard = () => {
   };
 
   return (
-    <div className={`leaderboard main__${theme}`}>
+    <div className={`leaderboard`}>
       <Header />
       <h1 className='leaderboard_title'>Leaderboard</h1>
       <div className="leaderboard_levels">
