@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import headerIcon from "/rubik.png";
 import AddScoreForm from './AddScore';
 
 const Level = ({
@@ -44,7 +46,9 @@ const Level = ({
       {!gameOver && (
         <div className='game__page' style={{ display: gameStart ? 'block' : 'none' }}>
           <div className="game__header">
-            <h1 className="game__header__title">{game}</h1>
+            <Link to="/">
+              <img className="game__header__logo" src={headerIcon} alt="world-search" />
+            </Link>
             <div className="game__header__characters">
               {characters.length > 0 && (
                 <p>Find {characters.length > 1 ? 'us' : 'me'}:</p>

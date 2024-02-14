@@ -1,23 +1,14 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
 import { useTheme } from './components/ThemeContext';
-import { ToastContainer, toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 import Header from './components/Header';
 import GameCard from './components/GameCard';
 import oliverCityCard from '/levels/oliver-city/oliver-city-card.png';
 import prehistoriaCard from '/levels/prehistoria/prehistoria-card.png';
 import dragonIslandCard from '/levels/dragon-island/dragon-island-card.png';
-import "react-toastify/dist/ReactToastify.css";
 import './styles/App.scss';
 
 function App() {
   const { theme } = useTheme();
-
-  const showToastMessage = (character) => {
-    toast.success(`You found ${character}`, {
-      position: toast.POSITION.BOTTOM_CENTER,
-    });
-  };
 
   const levelData = {
     oliver: {
@@ -46,31 +37,28 @@ function App() {
   return (
     <div className={`app_main main__${theme}`}>
       <Header theme={theme} />
-      <main className="main">
-        <h1 className="title">Choose a Level</h1>
-        <div className="games">
-          {Object.keys(levelData).map((levelName) => (
-            <Link
-              key={levelName}
-              className={`games__link games__link_${theme}`}
-              to={levelData[levelName].path}
-            >
-              <GameCard
-                image={levelData[levelName].image}
-                alt={levelData[levelName].alt}
-                title={levelData[levelName].title}
-                difficulty={levelData[levelName].difficulty}
-              />
-            </Link>
-          ))}
-        </div>
-        <div className="leaderboard_title">
-          <Link to="/leaderboard">
-            <h4>View Leaderboard</h4>
+      <h1 className="title">Choose a Level</h1>
+      <div className="games">
+        {Object.keys(levelData).map((levelName) => (
+          <Link
+            key={levelName}
+            className={`games__link games__link_${theme}`}
+            to={levelData[levelName].path}
+          >
+            <GameCard
+              image={levelData[levelName].image}
+              alt={levelData[levelName].alt}
+              title={levelData[levelName].title}
+              difficulty={levelData[levelName].difficulty}
+            />
           </Link>
-        </div>
-        <ToastContainer />
-      </main>
+        ))}
+      </div>
+      <div className="leaderboard_title">
+        <Link to="/leaderboard">
+          <h4 className={`leaderboard_link leaderboard_link__${theme}`}>View Leaderboard</h4>
+        </Link>
+      </div>
     </div>
   );
 }
