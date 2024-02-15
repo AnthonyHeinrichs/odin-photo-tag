@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import headerIcon from "/rubik.png";
 import AddScoreForm from './AddScore';
 
 const Level = ({
@@ -21,60 +19,33 @@ const Level = ({
 
   useEffect(() => {
     let timer;
-  
+
     if (gameStart) {
-      timer = setInterval(() => { 
+      timer = setInterval(() => {
         setSec((prevsec) => prevsec + 0.1);
       }, 100);
-  
+
       if (characters.length === 0) {
         clearInterval(timer);
         setGameOver(true);
-        handleWin((sec).toFixed(2));
+        handleWin(sec.toFixed(2));
       }
     }
-  
-    return () => clearInterval(timer); 
+
+    return () => clearInterval(timer);
   }, [sec, gameStart]);
 
   const handleGameStart = () => {
     setGameStart(true);
   };
 
-  return  (
+  return (
     <>
       {!gameOver && (
-        <div className='game__page' style={{ display: gameStart ? 'block' : 'none' }}>
-          <div className="game__header">
-            <Link to="/">
-              <img className="game__header__logo" src={headerIcon} alt="world-search" />
-            </Link>
-            <div className="game__header__characters">
-              {characters.length > 0 && (
-                <p>Find {characters.length > 1 ? 'us' : 'me'}:</p>
-              )}
-              <div>
-                {characters.map((character) => (
-                  <img
-                    key={character.name}
-                    className='character'
-                    src={character.image}
-                    alt={character.name}
-                  ></img>
-                ))}
-              </div>
-            </div>
-          </div>
-          <div className="character__header">
-            {characters.map((character) => (
-              <img
-                key={character.name}
-                className='character'
-                src={character.image}
-                alt={character.name}
-              ></img>
-            ))}
-          </div>
+        <div
+          className="game__page"
+          style={{ display: gameStart ? 'block' : 'none' }}
+        >
           <div className="search">
             <img
               className="search__img"
@@ -83,6 +54,23 @@ const Level = ({
               onLoad={handleImageLoad}
               onClick={handleTargetBoxClick}
             />
+            <div
+              className="search__characters"
+              style={{
+                top: 2 + scrollY,
+                left: 2 + scrollX,
+                transition: 'top 0.3s ease-in-out, left 0.3s ease-in-out',
+              }}
+            >
+              {characters.map((character) => (
+                <img
+                  key={character.name}
+                  className="character"
+                  src={character.image}
+                  alt={character.name}
+                ></img>
+              ))}
+            </div>
           </div>
           {dropdownVisible && (
             <div
@@ -96,7 +84,7 @@ const Level = ({
                 {characters.map((character, index) => (
                   <img
                     key={index}
-                    className='character'
+                    className="character"
                     src={character.image}
                     alt={character.name}
                     onClick={(e) => {
@@ -112,14 +100,14 @@ const Level = ({
       )}
       {gameOver && <AddScoreForm level={game} time={sec.toFixed(2)} />}
       {!gameStart && !gameOver && (
-        <div className='start'>
-          <div className='start__box'>
+        <div className="start">
+          <div className="start__box">
             <p>Find these characters</p>
             <div>
               {characters.map((character) => (
                 <img
                   key={character.name}
-                  className='character'
+                  className="character"
                   src={character.image}
                   alt={character.name}
                 ></img>
