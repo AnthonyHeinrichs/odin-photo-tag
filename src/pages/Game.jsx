@@ -172,17 +172,11 @@ const Game = () => {
       height: coordHeight,
     });
 
-    if (e.view.outerWidth > 850) {
-      setDropdownPosition({
-        x: coordWidth,
-        y: coordHeight + 20,
-      });
-    } else {
-      setDropdownPosition({
-        x: coordWidth,
-        y: coordHeight - 50,
-      });
-    }
+  
+    setDropdownPosition({
+      x: coordWidth,
+      y: coordHeight - 50,
+    });
 
     setDropdownVisible((prevVisibility) => !prevVisibility);
   };

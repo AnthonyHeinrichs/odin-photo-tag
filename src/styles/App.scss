@@ -1,5 +1,4 @@
 .header {
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   padding: 12px;
   display: flex;
   justify-content: space-between;
@@ -11,15 +10,7 @@
     gap: 12px;
     align-items: center;
   }
-
-  &__dark_theme {
-    background-color: rgb(46, 46, 58);
-  }
-
-  &__light_theme {
-    background-color: rgb(195, 195, 230);
-  }
-
+  
   &__logo {
     width: 48px;
   }
