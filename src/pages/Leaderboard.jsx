@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import Header from '../components/Header';
 import oliverCityCard from '/levels/oliver-city/oliver-city-card.png';
 import prehistoriaCard from '/levels/prehistoria/prehistoria-card.png'; // Update paths
@@ -58,44 +59,53 @@ const Leaderboard = () => {
   return (
     <div className={`leaderboard`}>
       <Header />
-      <h1 className='leaderboard_title'>Leaderboard</h1>
-      <div className="leaderboard_levels">
-        {Object.entries(leaderboardData).map(([level, scores]) => (
-          <div
-            key={level}
-            className={`leaderboard_level ${
-              selectedLevel === level
-                ? 'leaderboard_level__selected'
-                : 'leaderboard_level__not_selected'
-            }`}
-          >
-            <img
-              src={
-                level === 'prehistoria'
-                  ? prehistoriaCard
-                  : level === 'Dragon Island'
-                  ? dragonIslandCard
-                  : oliverCityCard
-              }
-              className="leaderboard_level__imgs"
-              onClick={() => handleLevelSelection(level)}
-              alt={level}
-            ></img>
-            <h2 className="leaderboard_level__title">
-              {level.charAt(0).toUpperCase() + level.slice(1)}
-            </h2>
+      <AnimatePresence>
+        <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.3 }}
+        >
+          <h1 className='leaderboard_title'>Leaderboard</h1>
+          <div className="leaderboard_levels">
+            {Object.entries(leaderboardData).map(([level, scores]) => (
+              <div
+                key={level}
+                className={`leaderboard_level ${
+                  selectedLevel === level
+                    ? 'leaderboard_level__selected'
+                    : 'leaderboard_level__not_selected'
+                }`}
+              >
+                <img
+                  src={
+                    level === 'prehistoria'
+                      ? prehistoriaCard
+                      : level === 'Dragon Island'
+                      ? dragonIslandCard
+                      : oliverCityCard
+                  }
+                  className="leaderboard_level__imgs"
+                  onClick={() => handleLevelSelection(level)}
+                  alt={level}
+                ></img>
+                <h2 className="leaderboard_level__title">
+                  {level.charAt(0).toUpperCase() + level.slice(1)}
+                </h2>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      <div className="leaderboard_scores">
-        <ol>
-          {leaderboardData[selectedLevel].map((score) => (
-            <li key={score._id}>
-              {score.name} - {score.time}
-            </li>
-          ))}
-        </ol>
-      </div>
+          <div className="leaderboard_scores">
+            <ol>
+              {leaderboardData[selectedLevel].map((score) => (
+                <li key={score._id}>
+                  {score.name} - {score.time}
+                </li>
+              ))}
+            </ol>
+          </div>
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 };

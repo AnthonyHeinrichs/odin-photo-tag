@@ -1,5 +1,8 @@
+import { useState } from 'react';
 import { useTheme } from './components/ThemeContext';
 import { Link } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
+import CustomLink from './components/CustomLink';
 import Header from './components/Header';
 import GameCard from './components/GameCard';
 import oliverCityCard from '/levels/oliver-city/oliver-city-card.png';
@@ -8,6 +11,8 @@ import dragonIslandCard from '/levels/dragon-island/dragon-island-card.png';
 import './styles/App.scss';
 
 function App() {
+  const [exit, setExit] = useState(false);
+
   const { theme } = useTheme();
 
   const levelData = {
@@ -37,28 +42,45 @@ function App() {
   return (
     <div className={`app_main main__${theme}`}>
       <Header theme={theme} />
-      <h1 className="title">Choose a Level</h1>
-      <div className="games">
-        {Object.keys(levelData).map((levelName) => (
-          <Link
-            key={levelName}
-            className={`games__link games__link_${theme}`}
-            to={levelData[levelName].path}
+      <AnimatePresence>
+        {!exit && (
+          <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
           >
-            <GameCard
-              image={levelData[levelName].image}
-              alt={levelData[levelName].alt}
-              title={levelData[levelName].title}
-              difficulty={levelData[levelName].difficulty}
-            />
-          </Link>
-        ))}
-      </div>
-      <div className="leaderboard_title">
-        <Link to="/leaderboard">
-          <h4 className={`leaderboard_link leaderboard_link__${theme}`}>View Leaderboard</h4>
-        </Link>
-      </div>
+            <h1 className="title">Choose a Level</h1>
+            <div className="games">
+              {Object.keys(levelData).map((levelName) => (
+                <CustomLink
+                  key={levelName}
+                  className={`games__link games__link_${theme}`}
+                  dest={levelData[levelName].path}
+                  setExit={setExit}
+                  content={
+                    <GameCard
+                    image={levelData[levelName].image}
+                    alt={levelData[levelName].alt}
+                    title={levelData[levelName].title}
+                    difficulty={levelData[levelName].difficulty}
+                    />
+                  }
+                />
+              ))}
+            </div>
+            <div className="leaderboard_title">
+              <div>
+                <CustomLink
+                  dest={'/leaderboard'}
+                  content={'View Leaderboard'}
+                  setExit={setExit}
+                />
+              </div>
+              </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
