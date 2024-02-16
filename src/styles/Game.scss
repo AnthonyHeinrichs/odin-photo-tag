@@ -14,9 +14,18 @@
   justify-content: center;
   align-items: center;
 
+  &__text {
+    font-weight: 500;
+
+    &__dark_theme {
+      color: #272727;
+    }
+  }
+
   &__box {
     height: 150px;
     width: 300px;
+    background-color: #ede1f7;
     border: solid rgb(110, 68, 145) 3px;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     border-radius: 5px;
@@ -24,7 +33,32 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+  }
+
+  &__btn {
+    width: 180px;
+    background-color: #eae0fb;
+    border: 2px solid #240042;
+    border-radius: 5px;
+    box-shadow: #240042 4px 4px 0 0;
+    color: #422800;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 0 8px;
+    line-height: 36px;
     text-align: center;
+    touch-action: manipulation;
+
+    &:hover {
+      background-color: #cbabe6;
+    }
+
+    &:active {
+      box-shadow: #422800 2px 2px 0 0;
+      transform: translate(2px, 2px);
+    }
   }
 }
 
@@ -95,15 +129,64 @@
   height: 100vh;
   width: 100vw;
   text-align: center;
-  background-color: black;
   display: flex;
   justify-content: center;
   align-items: center;
 
   &__content {
     padding: 24px;
-    background-color: rgb(161, 161, 161);
+    background-color: #ede1f7;
+    border: solid rgb(110, 68, 145) 3px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    color: #272727;
     border: solid white 2px;
     border-radius: 5px;
+
+    &__text {
+      font-weight: 500;
+      margin-top: 8px;
+      margin-bottom: 24px;
+    }
+
+    &__time {
+      font-weight: 900;
+    }
+
+    &__inputs {
+      margin-bottom: 24px;
+      margin-top: 4px;
+
+      input {
+        width: 158px;
+        border: none;
+        border-radius: 5px;
+        padding: 4px 8px;
+      }
+
+      button {
+        margin-left: 8px;
+        border-radius: 5px;
+        padding: 4px 8px;
+        cursor: pointer;
+        border: none;
+        background-color: #291b5e;
+        color: white;
+        font-weight: 700;
+      }
+    }
+
+    &__return {
+      text-decoration: none;
+
+      &_btn {
+        cursor: pointer;
+        border-radius: 5px;
+        padding: 4px 8px;
+        border: none;
+        color: white;
+        background-color: #291b5e;
+        font-weight: 700;
+      }
+    }
   }
 }
