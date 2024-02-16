@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useTheme } from './components/ThemeContext';
-import { Link } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import CustomLink from './components/CustomLink';
 import Header from './components/Header';

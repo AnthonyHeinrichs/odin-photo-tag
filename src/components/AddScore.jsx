@@ -1,12 +1,34 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 
 const AddScoreForm = ({ level, time }) => {
   const [formData, setFormData] = useState({
     name: '',
   });
+  const [updatedLevel, setUpdatedLevel] = useState('');
+  const [convertedTime, setConvertedTime] = useState(0);
 
   const navigateTo = useNavigate();
+
+  useEffect(() => {
+    let minutes = Math.floor(time / 60);
+    let seconds = time % 60;
+    setConvertedTime((minutes + seconds / 100).toFixed(2));
+
+    switch (level) {
+      case 'oliver':
+        setUpdatedLevel('Oliver Town');
+        break;
+      case 'prehistoria':
+        setUpdatedLevel('Prehistoria');
+        break;
+      case 'dragon':
+        setUpdatedLevel(`Dragon Charmer's Island`);
+        break;
+      default:
+        setUpdatedLevel('');
+    }
+  }, []);
 
   const handleInputChange = (e) => {
     setFormData({
@@ -30,7 +52,7 @@ const AddScoreForm = ({ level, time }) => {
         body: JSON.stringify({
           level: level,
           name: formData.name,
-          time: time,
+          time: convertedTime,
         }),
       });
 
@@ -48,10 +70,13 @@ const AddScoreForm = ({ level, time }) => {
 
   return (
     <div className="score_form">
-      <div className='score_form__content'>
-        <h2>You beat the level in {time} seconds!</h2>
-        <p>If you're happy with your score, add it to the leaderboard!</p>
-        <form onSubmit={handleSubmit}>
+      <div className="score_form__content">
+        <h2>{updatedLevel}</h2>
+        <h3 className="score_form__content__text">
+          Time: {convertedTime} {convertedTime > 1 ? 'minutes' : 'seconds'}
+        </h3>
+        <p>Add your score to the leaderboard</p>
+        <form className="score_form__content__inputs" onSubmit={handleSubmit}>
           <input
             className="form_name_input"
             type="text"
@@ -65,6 +90,11 @@ const AddScoreForm = ({ level, time }) => {
             Submit
           </button>
         </form>
+        <Link className="score_form__content__return" to="/">
+          <button className="score_form__content__return_btn">
+            Back to Main Menu
+          </button>
+        </Link>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTheme } from './ThemeContext';
 import AddScoreForm from './AddScore';
 
 const Level = ({
@@ -16,6 +17,8 @@ const Level = ({
   const [sec, setSec] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [gameStart, setGameStart] = useState(false);
+
+  const { theme } = useTheme();
 
   useEffect(() => {
     let timer;
@@ -102,7 +105,7 @@ const Level = ({
       {!gameStart && !gameOver && (
         <div className="start">
           <div className="start__box">
-            <p>Find these characters</p>
+            <p className={`start__text start__text__${theme}`}>Find these characters</p>
             <div>
               {characters.map((character) => (
                 <img
@@ -113,7 +116,9 @@ const Level = ({
                 ></img>
               ))}
             </div>
-            <button onClick={handleGameStart}>Let's go!</button>
+            <button className="start__btn" onClick={handleGameStart}>
+              Let's go!
+            </button>
           </div>
         </div>
       )}
