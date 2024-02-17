@@ -23,7 +23,7 @@ const AddScoreForm = ({ level, time }) => {
         setUpdatedLevel('Prehistoria');
         break;
       case 'dragon':
-        setUpdatedLevel(`Dragon Charmer's Island`);
+        setUpdatedLevel(`Dragon Island`);
         break;
       default:
         setUpdatedLevel('');
@@ -73,7 +73,7 @@ const AddScoreForm = ({ level, time }) => {
       <div className="score_form__content">
         <h2>{updatedLevel}</h2>
         <h3 className="score_form__content__text">
-          Time: {convertedTime} {convertedTime > 1 ? 'minutes' : 'seconds'}
+          Time: {convertedTime} minutes
         </h3>
         <p>Add your score to the leaderboard</p>
         <form className="score_form__content__inputs" onSubmit={handleSubmit}>
