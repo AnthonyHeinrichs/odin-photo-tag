@@ -33,7 +33,7 @@ function App() {
       path: '/game/dragon',
       image: dragonIslandCard,
       alt: 'dragon-island',
-      title: "Dragon Charmer's Island",
+      title: 'Dragon Island',
       difficulty: 'Hard',
     },
   };
@@ -44,10 +44,10 @@ function App() {
       <AnimatePresence>
         {!exit && (
           <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.3 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
           >
             <h1 className="title">Choose a Level</h1>
             <div className="games">
@@ -59,16 +59,16 @@ function App() {
                   setExit={setExit}
                   content={
                     <GameCard
-                    image={levelData[levelName].image}
-                    alt={levelData[levelName].alt}
-                    title={levelData[levelName].title}
-                    difficulty={levelData[levelName].difficulty}
+                      image={levelData[levelName].image}
+                      alt={levelData[levelName].alt}
+                      title={levelData[levelName].title}
+                      difficulty={levelData[levelName].difficulty}
                     />
                   }
                 />
               ))}
             </div>
-            <div className="leaderboard_title">
+            <div className="leaderboard_link">
               <div>
                 <CustomLink
                   dest={'/leaderboard'}
@@ -76,7 +76,7 @@ function App() {
                   setExit={setExit}
                 />
               </div>
-              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

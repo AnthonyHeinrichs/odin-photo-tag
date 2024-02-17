@@ -102,7 +102,7 @@ const Level = ({
         </div>
       )}
       {gameOver && <AddScoreForm level={game} time={sec.toFixed(2)} />}
-      {!gameStart && !gameOver && (
+      {!gameStart && (
         <div className="start">
           <div className="start__box">
             <p className={`start__text start__text__${theme}`}>Find these characters</p>
