@@ -53,11 +53,11 @@
     transition: opacity 0.5s ease-in-out; 
   }
   
-  .header__theme.light img {
+  .header__theme.light > .animate {
     animation: slideDown 0.5s ease-in-out; 
   }
   
-  .header__theme.dark img {
+  .header__theme.dark > .animate {
     animation: slideUp 0.5s ease-in-out; 
   }
 }
