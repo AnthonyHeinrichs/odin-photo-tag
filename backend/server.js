@@ -60,7 +60,6 @@ app.get('/leaderboard', verifyApiKey, async (req, res) => {
 
 app.post('/leaderboard', verifyApiKey, async (req, res) => {
   try {
-    console.log(req.body);
     const { level, name, time } = req.body;
 
     const newScore = new Score({
