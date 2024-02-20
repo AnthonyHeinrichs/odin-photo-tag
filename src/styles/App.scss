@@ -63,6 +63,10 @@
   }
 }
 
+.main {
+  min-height: 85vh;
+}
+
 .title {
   margin-top: 82px;
   margin-bottom: 24px;
@@ -78,6 +82,7 @@
   justify-content: center;
   align-items: center;
   gap: 24px;
+  margin: 12px;
 
   &__link {
     text-decoration: none;
@@ -106,4 +111,25 @@
   margin-top: 36px;
   text-decoration: underline;
   cursor: pointer;
+}
+
+.footer {
+  display: flex;
+  margin-top: 62px;
+  justify-content: flex-end;
+  width: 100%;
+
+  &__copy_container {
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  &__github {
+    margin-left: 4px;
+    height: 18px;
+  }
 }
