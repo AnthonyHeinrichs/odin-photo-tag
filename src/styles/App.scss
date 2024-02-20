@@ -74,6 +74,10 @@
   padding: 12px;
   font-weight: 800;
   text-align: center;
+
+  @media screen and (max-width: 768px) {
+    margin-top: 48px; 
+  }
 }
 
 .games {
@@ -82,7 +86,6 @@
   justify-content: center;
   align-items: center;
   gap: 24px;
-  margin: 12px;
 
   &__link {
     text-decoration: none;
@@ -115,7 +118,7 @@
 
 .footer {
   display: flex;
-  margin-top: 62px;
+  margin-top: 72px;
   justify-content: flex-end;
   width: 100%;
 
