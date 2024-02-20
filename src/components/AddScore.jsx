@@ -50,7 +50,7 @@ const AddScoreForm = ({ level, time }) => {
     const apiKey = import.meta.env.VITE_API_KEY;
 
     try {
-      const response = await fetch('http://localhost:5000/leaderboard', {
+      const response = await fetch('https://odin-photo-tag-be.vercel.app/leaderboard', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

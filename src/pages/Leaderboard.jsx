@@ -21,7 +21,7 @@ const Leaderboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const resp = await fetch('http://localhost:5000/leaderboard', {
+        const resp = await fetch('https://odin-photo-tag-be.vercel.app/leaderboard', {
           headers: {
             'X-API-Key': import.meta.env.VITE_API_KEY,
           },
@@ -55,8 +55,6 @@ const Leaderboard = () => {
 
     fetchData();
   }, []);
-
-  console.log(leaderboardData);
 
   const handleLevelSelection = (name) => {
     setSelectedLevel(name);
