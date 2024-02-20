@@ -9,7 +9,6 @@ const Level = ({
   handleImageLoad,
   handleTargetBoxClick,
   handleCharacterSelection,
-  handleWin,
   dropdownVisible,
   dropdownPosition,
   characters,
@@ -31,7 +30,6 @@ const Level = ({
       if (characters.length === 0) {
         clearInterval(timer);
         setGameOver(true);
-        handleWin(sec.toFixed(2));
       }
     }
 
