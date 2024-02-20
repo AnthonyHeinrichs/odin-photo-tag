@@ -3,6 +3,7 @@ import { useTheme } from './components/ThemeContext';
 import { AnimatePresence, motion } from 'framer-motion';
 import CustomLink from './components/CustomLink';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import GameCard from './components/GameCard';
 import oliverCityCard from '/levels/oliver-city/oliver-city-card.png';
 import prehistoriaCard from '/levels/prehistoria/prehistoria-card.png';
@@ -39,47 +40,50 @@ function App() {
   };
 
   return (
-    <div className={`app_main main__${theme}`}>
-      <Header theme={theme} />
-      <AnimatePresence>
-        {!exit && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-          >
-            <h1 className="title">Choose a Level</h1>
-            <div className="games">
-              {Object.keys(levelData).map((levelName) => (
-                <CustomLink
-                  key={levelName}
-                  className={`games__link games__link_${theme}`}
-                  dest={levelData[levelName].path}
-                  setExit={setExit}
-                  content={
-                    <GameCard
-                      image={levelData[levelName].image}
-                      alt={levelData[levelName].alt}
-                      title={levelData[levelName].title}
-                      difficulty={levelData[levelName].difficulty}
-                    />
-                  }
-                />
-              ))}
-            </div>
-            <div className="leaderboard_link">
-              <div>
-                <CustomLink
-                  dest={'/leaderboard'}
-                  content={'View Leaderboard'}
-                  setExit={setExit}
-                />
+    <div>
+      <div className='main'>
+        <Header theme={theme} />
+        <AnimatePresence>
+          {!exit && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <h1 className="title">Choose a Level</h1>
+              <div className="games">
+                {Object.keys(levelData).map((levelName) => (
+                  <CustomLink
+                    key={levelName}
+                    className={`games__link games__link_${theme}`}
+                    dest={levelData[levelName].path}
+                    setExit={setExit}
+                    content={
+                      <GameCard
+                        image={levelData[levelName].image}
+                        alt={levelData[levelName].alt}
+                        title={levelData[levelName].title}
+                        difficulty={levelData[levelName].difficulty}
+                      />
+                    }
+                  />
+                ))}
               </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              <div className="leaderboard_link">
+                <div>
+                  <CustomLink
+                    dest={'/leaderboard'}
+                    content={'View Leaderboard'}
+                    setExit={setExit}
+                  />
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+      <Footer />
     </div>
   );
 }
