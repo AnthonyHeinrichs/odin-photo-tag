@@ -198,7 +198,6 @@ const Game = () => {
               handleImageLoad={handleImageLoad}
               handleTargetBoxClick={handleTargetBoxClick}
               handleCharacterSelection={handleCharacterSelection}
-              handleWin={handleWin}
               dropdownVisible={dropdownVisible}
               dropdownPosition={dropdownPosition}
               characters={filteredCharacters}
