@@ -76,15 +76,10 @@ const Game = () => {
     (character) => !foundCharacters.includes(character.name)
   );
 
-  // Handling level completion (win)
-  const handleWin = (time) => {
-    console.log(`You won in ${time} seconds`);
-  };
-
   // Fetch for location data as locations are hidden in DB
   const fetchCharacterLocations = async () => {
     try {
-      const resp = await fetch('http://localhost:5000/games', {
+      const resp = await fetch('https://odin-photo-tag-be.vercel.app/games', {
         headers: {
           'X-API-Key': apiKey,
         },
@@ -125,8 +120,6 @@ const Game = () => {
     const tolerance = 75;
     const isWithinToleranceX = Math.abs(actualX - guessX) <= tolerance;
     const isWithinToleranceY = Math.abs(actualY - guessY) <= tolerance;
-
-    console.log(guessX, guessY);
 
     if (isWithinToleranceX && isWithinToleranceY) {
       setFoundCharacters((prevFoundCharacters) => [
